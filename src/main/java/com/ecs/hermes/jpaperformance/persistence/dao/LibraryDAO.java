@@ -13,5 +13,4 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "libraryDAO")
 public class LibraryDAO extends GenericDAOJPAImpl<Library, Long> {
 
-
 }

@@ -7,7 +7,6 @@ import org.springframework.stereotype.Repository;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created with IntelliJ IDEA.
  * User: john
@@ -39,6 +38,5 @@ public class PersonDAO extends GenericDAOJPAImpl<Person, Long> {
     public Person findById(Long id) {
         return this.em.find(PersonGoodPerformance.class, id);
     }
-
 
 }

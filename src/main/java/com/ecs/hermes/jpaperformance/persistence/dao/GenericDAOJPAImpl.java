@@ -64,7 +64,6 @@ public class GenericDAOJPAImpl<T, ID extends Serializable> implements IGenericDA
                 .getResultList();
     }
 
-
     /**
      * save an entity. This can be either a INSERT or UPDATE in the database.
      *

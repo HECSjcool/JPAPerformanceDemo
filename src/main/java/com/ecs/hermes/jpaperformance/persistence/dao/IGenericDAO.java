@@ -36,7 +36,6 @@ public interface IGenericDAO<T, ID extends Serializable> {
 
     List<T> findAll();
 
-
     /**
      * save an entity. This can be either a INSERT or UPDATE in the database.
      *
@@ -54,8 +53,6 @@ public interface IGenericDAO<T, ID extends Serializable> {
 
     void delete(final T entity);
 
-
     List<T> saveACollection(List<T> entitiesToSave);
-
 
 }

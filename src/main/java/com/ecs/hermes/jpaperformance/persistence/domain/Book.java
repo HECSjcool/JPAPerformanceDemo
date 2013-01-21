@@ -38,7 +38,6 @@ public class Book {
     @Column
     private Date lastReadDate;
 
-
     public Long getId() {
         return id;
     }

@@ -18,19 +18,14 @@ import java.util.*;
  */
 public class TestLibraryService {
 
-
     static LibraryService libraryService;
     static ApplicationContext context = SpringUtils.init();
-
 
     @BeforeClass
     public static void setUp() {
 
         libraryService = (LibraryService) context.getBean("libraryService");
-
-
     }
-
 
     @Test
     public void testCreateCollectionOfLibraries() {
@@ -71,9 +66,7 @@ public class TestLibraryService {
     @Test
     public void testUpdate() {
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-
         libraryService.saveACollectionOfLibraries(libraryList);
-
         libraryService.retrieveAllBooksAndUpdateLastReadDate(new Date());
 
     }

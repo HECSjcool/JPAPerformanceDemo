@@ -12,11 +12,9 @@ import org.apache.log4j.Logger;
 import org.aspectj.lang.ProceedingJoinPoint;
 import org.aspectj.lang.annotation.Around;
 
-
 public class ServiceAroundAspect {
 
     Logger logger = Logger.getLogger(this.getClass());
-
 
     @Around("within(com.ecs.hermes.jpaperformance.service..*)")
     public Object doBasicProfiling(ProceedingJoinPoint pjp) throws Throwable {

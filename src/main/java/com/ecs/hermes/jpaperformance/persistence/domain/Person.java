@@ -8,7 +8,6 @@ package com.ecs.hermes.jpaperformance.persistence.domain;
  * To change this template use File | Settings | File Templates.
  */
 
-
 public abstract class Person {
 
     public abstract Long getId();

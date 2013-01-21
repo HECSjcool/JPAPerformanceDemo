@@ -14,7 +14,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-
 /**
  * Created with IntelliJ IDEA.
  * User: john
@@ -31,13 +30,11 @@ public class LibraryService {
     @Qualifier("libraryDAO")
     private IGenericDAO genericDAO;
 
-
     @Transactional
     public List<Library> saveACollectionOfLibraries(List<Library> libraryList) {
         return genericDAO.saveACollection(libraryList);
 
     }
-
 
     @Transactional
     public void retrieveAllBooksAndUpdateLastReadDate(Date date) {
@@ -65,7 +62,6 @@ public class LibraryService {
         oneBook.setLastReadDate(date);
     }
 
-
     @Transactional
     public void deleteAllLibraries() {
         List<Library> libraryList = genericDAO.findAll();
@@ -81,7 +77,6 @@ public class LibraryService {
         List<Library> libraryList = genericDAO.findAll();
 
         for (Library lib : libraryList) {
-
 
             lib.getBookSet().clear();
             break;
