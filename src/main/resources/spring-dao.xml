@@ -3,7 +3,6 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xmlns:hprof="http://www.nhprof.com/schema/hprof"
        xsi:schemaLocation="
      http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans.xsd
@@ -12,9 +11,7 @@
      http://www.springframework.org/schema/aop
      http://www.springframework.org/schema/aop/spring-aop.xsd
      http://www.springframework.org/schema/context
-     http://www.springframework.org/schema/context/spring-context.xsd
-     http://www.nhprof.com/schema/hprof
-     http://www.nhprof.com/schema/hprof/hprof.xsd">
+     http://www.springframework.org/schema/context/spring-context.xsd">
 
 
     <context:annotation-config/>
@@ -28,8 +25,10 @@
                 <entry key="hibernate.hbm2ddl.auto" value="create-drop"/>
                 <entry key="hibernate.cache.region.factory_class"
                        value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
-                <entry key="hibernate.cache.use_query_cache" value="true"/>
-                <entry key="hibernate.cache.use_second_level_cache" value="true"/>
+                <entry key="hibernate.cache.use_query_cache" value="false"/>
+                <entry key="hibernate.cache.use_second_level_cache" value="false"/>
+                <entry key="hibernate.max_fetch_depth" value="2"/>
+                <entry key="hibernate.default_batch_fetch_size" value="100"/>
 
 
             </map>
@@ -51,7 +50,7 @@
             </bean>
 
         </property>
-        <hprof:profiler useSpy="true"/>
+
     </bean>
 
     <bean id="dataSource" destroy-method="close"

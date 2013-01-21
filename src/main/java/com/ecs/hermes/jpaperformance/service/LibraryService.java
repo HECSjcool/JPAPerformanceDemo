@@ -40,7 +40,7 @@ public class LibraryService {
     public void retrieveAllBooksAndUpdateLastReadDate(Date date) {
 
         List<Library> libraryList = genericDAO.findAll();
-
+        logger.info("Libraries retrieved");
         for (Library oneLib : libraryList) {
 
             Set<Book> booksToKeep = new HashSet<Book>();

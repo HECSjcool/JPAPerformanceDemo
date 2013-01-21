@@ -1,7 +1,10 @@
 package com.ecs.hermes.jpaperformance.persistence.dao;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Library;
+import org.hibernate.Session;
 import org.springframework.stereotype.Repository;
+
+import java.util.List;
 
 /**
  * Created with IntelliJ IDEA.
@@ -13,4 +16,10 @@ import org.springframework.stereotype.Repository;
 @Repository(value = "libraryDAO")
 public class LibraryDAO extends GenericDAOJPAImpl<Library, Long> {
 
+    public List<Library> findAll() {
+
+        Session sess = (Session) em.getDelegate();
+        return sess.createCriteria(Library.class).list();
+
+    }
 }

@@ -1,5 +1,6 @@
 package com.ecs.hermes.jpaperformance.persistence.domain;
 
+import org.hibernate.annotations.BatchSize;
 import org.hibernate.annotations.Fetch;
 import org.hibernate.annotations.FetchMode;
 
@@ -14,6 +15,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Entity
+
 public class Library {
 
     @Id
@@ -29,8 +31,9 @@ public class Library {
     private String name;
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
-    @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "LIB_ID")
+    @Fetch(value = FetchMode.JOIN)
+    @BatchSize(size = 10)
     private Set<Book> bookSet;
 
     public Set<Book> getBookSet() {
