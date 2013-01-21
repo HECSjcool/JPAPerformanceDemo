@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<ehcache xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xsi:noNamespaceSchemaLocation="http://ehcache.org/ehcache.xsd">
+
+    <diskStore path="java.io.tmpdir"/>
+    <defaultCache
+            eternal="false"
+            maxElementsInMemory="1000"
+            maxElementsOnDisk="10000"
+            overflowToDisk="true"
+            diskPersistent="true"
+            timeToLiveSeconds="300"
+            />
+
+    <cache
+            name="com.ecs.hermes.jpaperformance.persistence.domain.ConfigData"
+            maxElementsInMemory="10000"
+            copyOnRead="true"
+            copyOnWrite="true"
+            logging="true"
+            statistics="true"
+            eternal="false"
+            timeToIdleSeconds="300"
+            timeToLiveSeconds="600"
+            />
+
+</ehcache>

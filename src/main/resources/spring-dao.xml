@@ -1,0 +1,76 @@
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:context="http://www.springframework.org/schema/context"
+       xmlns:hprof="http://www.nhprof.com/schema/hprof"
+       xsi:schemaLocation="
+     http://www.springframework.org/schema/beans
+     http://www.springframework.org/schema/beans/spring-beans.xsd
+     http://www.springframework.org/schema/tx
+     http://www.springframework.org/schema/tx/spring-tx.xsd
+     http://www.springframework.org/schema/aop
+     http://www.springframework.org/schema/aop/spring-aop.xsd
+     http://www.springframework.org/schema/context
+     http://www.springframework.org/schema/context/spring-context.xsd
+     http://www.nhprof.com/schema/hprof
+     http://www.nhprof.com/schema/hprof/hprof.xsd">
+
+
+    <context:annotation-config/>
+    <aop:aspectj-autoproxy/>
+    <context:component-scan base-package="com.ecs.hermes"/>
+
+    <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+
+        <property name="jpaPropertyMap">
+            <map>
+                <entry key="hibernate.hbm2ddl.auto" value="create-drop"/>
+                <entry key="hibernate.cache.region.factory_class"
+                       value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
+                <entry key="hibernate.cache.use_query_cache" value="true"/>
+                <entry key="hibernate.cache.use_second_level_cache" value="true"/>
+
+
+            </map>
+        </property>
+        <property name="persistenceUnitName" value="myPersistenceUnit"/>
+        <property name="packagesToScan">
+            <list>
+                <value>com.ecs.hermes.jpaperformance.persistence.domain</value>
+            </list>
+        </property>
+        <property name="dataSource" ref="dataSource"/>
+        <property name="jpaVendorAdapter">
+            <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
+
+                <property name="showSql" value="true"/>
+                <property name="generateDdl" value="true"/>
+                <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect"/>
+
+            </bean>
+
+        </property>
+        <hprof:profiler useSpy="true"/>
+    </bean>
+
+    <bean id="dataSource" destroy-method="close"
+          class="org.apache.commons.dbcp.BasicDataSource">
+        <property name="driverClassName" value="oracle.jdbc.OracleDriver"/>
+        <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
+        <property name="username" value="jcool"/>
+        <property name="password" value="jcool"/>
+        <property name="maxActive" value="1"/>
+
+    </bean>
+
+    <!-- enable the configuration of transactional behavior based on annotations -->
+    <tx:annotation-driven transaction-manager="myTxManager"/>
+
+
+    <bean id="myTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
+        <property name="entityManagerFactory" ref="myEmf"/>
+    </bean>
+
+
+</beans>

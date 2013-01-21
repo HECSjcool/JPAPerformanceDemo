@@ -1,0 +1,2 @@
+truncate TABLE PersonBadPerformance;
+truncate TABLE PersonGoodperformance;
