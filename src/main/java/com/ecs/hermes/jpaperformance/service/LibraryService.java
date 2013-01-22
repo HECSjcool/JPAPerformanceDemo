@@ -43,7 +43,7 @@ public class LibraryService {
         logger.info("Libraries retrieved");
         for (Library oneLib : libraryList) {
 
-            Set<Book> booksToKeep = new HashSet<Book>();
+            Set<Book> booksToKeep = new HashSet<Book>(oneLib.getBookSet().size());
 
             for (Book oneBook : oneLib.getBookSet()) {
 
@@ -57,7 +57,7 @@ public class LibraryService {
         }
     }
 
-    private void updateBook(Date date, Book oneBook) {
+    private static void updateBook(Date date, Book oneBook) {
 
         oneBook.setLastReadDate(date);
     }

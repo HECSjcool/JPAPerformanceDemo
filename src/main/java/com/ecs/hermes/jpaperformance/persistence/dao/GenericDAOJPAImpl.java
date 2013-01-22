@@ -89,7 +89,7 @@ public class GenericDAOJPAImpl<T, ID extends Serializable> implements IGenericDA
     @Override
     public List<T> saveACollection(List<T> entitiesToSave) {
         int counter = 0;
-        List<T> list = new ArrayList<T>();
+        List<T> list = new ArrayList<T>(entitiesToSave.size());
 
         for (T p : entitiesToSave) {
             list.add(this.em.merge(p));

@@ -35,7 +35,7 @@ public class PersonService {
     @Transactional
     public List<Person> saveACollectionOfPersons(List<Person> personList) {
 
-        List listSavedPersons = new ArrayList<Person>();
+        List listSavedPersons = new ArrayList<Person>(personList.size());
 
         for (Person p : personList) {
             Person pnew = (Person) genericDAO.save(p);

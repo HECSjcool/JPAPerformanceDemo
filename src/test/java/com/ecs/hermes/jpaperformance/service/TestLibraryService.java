@@ -35,15 +35,15 @@ public class TestLibraryService {
 
     }
 
-    private List<Library> createDummyLibrariesAndBooks(int numbOfLibToBeCreated, int numbOfBookPerLib) {
-        List<Library> libraryList = new ArrayList<Library>();
+    private static List<Library> createDummyLibrariesAndBooks(int numbOfLibToBeCreated, int numbOfBookPerLib) {
+        List<Library> libraryList = new ArrayList<Library>(numbOfLibToBeCreated);
 
         for (Integer i = 0; i < numbOfLibToBeCreated; i++) {
 
             Library l = new Library();
             l.setName("name" + System.currentTimeMillis());
 
-            Set<Book> bookSet = new HashSet<Book>();
+            Set<Book> bookSet = new HashSet<Book>(numbOfBookPerLib);
             for (Integer j = 0; j < numbOfBookPerLib; j++) {
 
                 Book b = new Book();

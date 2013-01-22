@@ -19,7 +19,7 @@ public class PersonDAO extends GenericDAOJPAImpl<Person, Long> {
 
     public List<Person> saveACollectionOfPersons(List<Person> personToBeSavedList) {
         int counter = 0;
-        List listSavedPersons = new ArrayList<Person>();
+        List listSavedPersons = new ArrayList<Person>(personToBeSavedList.size());
 
         for (Person p : personToBeSavedList) {
             listSavedPersons.add(this.em.merge(p));

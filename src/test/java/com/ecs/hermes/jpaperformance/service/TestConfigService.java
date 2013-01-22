@@ -9,7 +9,6 @@ import org.springframework.context.ApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
-
 /**
  * Created with IntelliJ IDEA.
  * User: john
@@ -26,7 +25,7 @@ public class TestConfigService {
     @Test
     public void saveConfigDataAndGetParticularEvent() {
 
-        List<ConfigData> configDataList = new ArrayList<ConfigData>();
+        List<ConfigData> configDataList = new ArrayList<ConfigData>(100);
         for (int i = 0; i < 100; i++) {
             ConfigData cf = new ConfigData();
             cf.setKey("key" + i);

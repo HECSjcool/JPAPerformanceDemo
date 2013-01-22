@@ -38,7 +38,6 @@ public class TestPersonService {
 
     }
 
-
     private Person createDummyBPPerson() {
         Person p = new PersonBadPerformance();
 
@@ -52,11 +51,10 @@ public class TestPersonService {
         return p;
     }
 
-    private void setFirstAndLastNames(Person p) {
+    private static void setFirstAndLastNames(Person p) {
         p.setFirstName("first" + System.currentTimeMillis());
         p.setLastName("last" + System.currentTimeMillis());
     }
-
 
     @Test
     public void testCreateABPPerson() {
@@ -93,10 +91,8 @@ public class TestPersonService {
 
     }
 
-
     @Test
     public void testCreateCollectionOfBPPersons() {
-
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
             Person p = createDummyBPPerson();
@@ -110,7 +106,6 @@ public class TestPersonService {
     @Test
     public void testCreateCollectionOfGPPersons() {
 
-
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
             Person p = createDummyGPPerson();
             Person p2 = personService.saveAPerson(p);
@@ -119,11 +114,10 @@ public class TestPersonService {
 
     }
 
-
     @Test
     public void testCreateCollectionOfPersonsInOneTransaction() {
 
-        List listPersons = new ArrayList<Person>();
+        List listPersons = new ArrayList<Person>(NUMBER_OF_PERSONS_CREATED);
 
         for (int i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
             Person p = createDummyGPPerson();
@@ -135,12 +129,10 @@ public class TestPersonService {
 
     }
 
-
     @Test
     public void testCreateCollectionOfPersonsInOneTransactionAndFlushing() {
 
-        List listPersons = new ArrayList<PersonBadPerformance>();
-
+        List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED);
 
         for (int i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
             Person p = createDummyGPPerson();
