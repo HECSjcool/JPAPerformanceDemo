@@ -71,9 +71,8 @@ public class Book {
 
         if (isdn != null ? !isdn.equals(book.isdn) : book.isdn != null) return false;
         if (lastReadDate != null ? !lastReadDate.equals(book.lastReadDate) : book.lastReadDate != null) return false;
-        if (title != null ? !title.equals(book.title) : book.title != null) return false;
+        return !(title != null ? !title.equals(book.title) : book.title != null);
 
-        return true;
     }
 
     @Override

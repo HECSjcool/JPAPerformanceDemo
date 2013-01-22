@@ -17,8 +17,6 @@ public class SpringUtils {
     private SpringUtils() {
     }
 
-    ;
-
     public static ApplicationContext init() {
 
         return context;

@@ -73,8 +73,7 @@ public class GenericDAOJPAImpl<T, ID extends Serializable> implements IGenericDA
     @Override
     public T save(T entity) {
 
-        final T savedEntity = this.em.merge(entity);
-        return savedEntity;
+        return this.em.merge(entity);
     }
 
     /**

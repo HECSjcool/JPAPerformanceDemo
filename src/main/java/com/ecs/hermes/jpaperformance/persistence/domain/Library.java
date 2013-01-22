@@ -64,9 +64,8 @@ public class Library {
         Library library = (Library) o;
 
         if (bookSet != null ? !bookSet.equals(library.bookSet) : library.bookSet != null) return false;
-        if (!name.equals(library.name)) return false;
+        return name.equals(library.name);
 
-        return true;
     }
 
     @Override
