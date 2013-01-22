@@ -1,9 +1,5 @@
 package com.ecs.hermes.jpaperformance.persistence.domain;
 
-import org.hibernate.annotations.BatchSize;
-import org.hibernate.annotations.Fetch;
-import org.hibernate.annotations.FetchMode;
-
 import javax.persistence.*;
 import java.util.Set;
 
@@ -30,10 +26,10 @@ public class Library {
     @Column
     private String name;
 
-    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "LIB_ID")
-    @Fetch(value = FetchMode.JOIN)
-    @BatchSize(size = 10)
+    // @Fetch(value = FetchMode.SELECT)
+    // @BatchSize(size = 2)
     private Set<Book> bookSet;
 
     public Set<Book> getBookSet() {

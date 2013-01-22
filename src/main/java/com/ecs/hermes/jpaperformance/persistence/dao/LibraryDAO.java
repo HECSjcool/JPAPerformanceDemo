@@ -19,7 +19,7 @@ public class LibraryDAO extends GenericDAOJPAImpl<Library, Long> {
     public List<Library> findAll() {
 
         Session sess = (Session) em.getDelegate();
-        return sess.createCriteria(Library.class).list();
+        return sess.createCriteria(Library.class).setMaxResults(100).list();
 
     }
 }

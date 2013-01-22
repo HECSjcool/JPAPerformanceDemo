@@ -65,7 +65,7 @@ public class TestLibraryService {
      */
     @Test
     public void testUpdate() {
-        List<Library> libraryList = createDummyLibrariesAndBooks(1, 1);
+        List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
         libraryService.saveACollectionOfLibraries(libraryList);
         libraryService.retrieveAllBooksAndUpdateLastReadDate(new Date());
 

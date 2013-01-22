@@ -25,10 +25,8 @@
                 <entry key="hibernate.hbm2ddl.auto" value="create-drop"/>
                 <entry key="hibernate.cache.region.factory_class"
                        value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
-                <entry key="hibernate.cache.use_query_cache" value="false"/>
-                <entry key="hibernate.cache.use_second_level_cache" value="false"/>
-                <entry key="hibernate.max_fetch_depth" value="2"/>
-                <entry key="hibernate.default_batch_fetch_size" value="100"/>
+                <entry key="hibernate.cache.use_query_cache" value="true"/>
+                <entry key="hibernate.cache.use_second_level_cache" value="true"/>
 
 
             </map>
