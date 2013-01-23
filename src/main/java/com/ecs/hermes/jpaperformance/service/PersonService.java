@@ -60,7 +60,10 @@ public class PersonService {
 
     @Transactional
     public void retrieveInSameTransactionTwoTimesTheSamePerson(Long id) {
+
+        logger.info("Retrieving for the first time");
         genericDAO.findById(id);
+        logger.info("Retrieving for the second time");
         genericDAO.findById(id);
 
     }

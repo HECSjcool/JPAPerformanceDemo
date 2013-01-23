@@ -30,7 +30,7 @@ public class TestLibraryService {
     @Test
     public void testCreateCollectionOfLibraries() {
 
-        List<Library> libraryList = createDummyLibrariesAndBooks(1000, 1000);
+        List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
         libraryService.saveACollectionOfLibraries(libraryList);
 
     }
@@ -59,7 +59,6 @@ public class TestLibraryService {
     }
 
     /**
-     * TO MUCH UPDATE GENERATED BECAUSE EQUALS AND HASHCODE NOT CORRECTLY IMPLEMENTED
      * <p/>
      * Hibernate: update Book set LIB_ID=? where id=?*
      */

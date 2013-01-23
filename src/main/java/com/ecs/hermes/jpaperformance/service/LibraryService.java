@@ -76,6 +76,7 @@ public class LibraryService {
     public void deleteAllBookForOneLibrary() {
         List<Library> libraryList = genericDAO.findAll();
 
+        //Better to clear all list than one by one
         libraryList.get(0).getBookSet().clear();
 
     }

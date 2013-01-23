@@ -99,6 +99,7 @@ public class TestPersonService {
     public void testCreateCollectionOfBPPersons() {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
+
             Person p = createDummyBPPerson();
             p.setId(i.longValue() + 1);
             Person p2 = personService.saveAPerson(p);
@@ -190,6 +191,7 @@ public class TestPersonService {
 
     @Test
     public void testGetAPersonWithAnParticularInIDByUsingTheFirstLevelCache() {
+
         Person p = createDummyGPPerson();
         Person p2 = personService.saveAPerson(p);
 
