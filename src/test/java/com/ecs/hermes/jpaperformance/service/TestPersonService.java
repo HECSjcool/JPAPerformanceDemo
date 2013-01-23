@@ -5,6 +5,7 @@ import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import com.ecs.hermes.jpaperformance.persistence.launchers.SpringUtils;
+import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -24,7 +25,7 @@ import static org.junit.Assert.assertNotNull;
  */
 public class TestPersonService {
 
-    public static final int NUMBER_OF_PERSONS_CREATED = 10000;
+    public static final int NUMBER_OF_PERSONS_CREATED = 100000;
     static PersonService personService;
     static ApplicationContext context = SpringUtils.init();
     static PersonDAO personDAO;
@@ -91,6 +92,9 @@ public class TestPersonService {
 
     }
 
+    /**
+     * To RUN WHILE GOING THROUGH SLIDES  ( 2 min 24)
+     */
     @Test
     public void testCreateCollectionOfBPPersons() {
 
@@ -103,6 +107,9 @@ public class TestPersonService {
 
     }
 
+    /**
+     * Time took : 1 m 27
+     */
     @Test
     public void testCreateCollectionOfGPPersons() {
 
@@ -115,6 +122,9 @@ public class TestPersonService {
     }
 
     @Test
+    /**
+     * Time took : 42
+     */
     public void testCreateCollectionOfPersonsInOneTransaction() {
 
         List listPersons = new ArrayList<Person>(NUMBER_OF_PERSONS_CREATED);
@@ -140,6 +150,41 @@ public class TestPersonService {
 
         }
         personService.saveACollectionOfPersonsWithOneCallToDao(listPersons);
+
+    }
+
+    @Test
+    public void testCreateCollectionOfPersonsInOneTransactionAndFlushingWithMultiThreading() {
+
+        List<PersonBatchRunnable> personBatchRunnables = new ArrayList<PersonBatchRunnable>();
+
+        for (int j = 0; j < 5; j++) {
+            List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / 5);
+
+            for (int i = 0 + NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
+                Person p = createDummyGPPerson();
+                listPersons.add(p);
+
+            }
+            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (PersonService) context.getBean("personService")));
+
+        }
+
+        List<Thread> threadList = new ArrayList<Thread>();
+        for (PersonBatchRunnable pbr : personBatchRunnables) {
+
+            Thread t = new Thread(pbr);
+            threadList.add(t);
+            t.start();
+
+        }
+        for (Thread t : threadList) {
+            try {
+                t.join();
+            } catch (InterruptedException e) {
+                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+            }
+        }
 
     }
 

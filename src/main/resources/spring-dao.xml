@@ -3,8 +3,7 @@
        xmlns:aop="http://www.springframework.org/schema/aop"
        xmlns:tx="http://www.springframework.org/schema/tx"
        xmlns:context="http://www.springframework.org/schema/context"
-       xsi:schemaLocation="
-     http://www.springframework.org/schema/beans
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans.xsd
      http://www.springframework.org/schema/tx
      http://www.springframework.org/schema/tx/spring-tx.xsd
@@ -48,7 +47,7 @@
             </bean>
 
         </property>
-
+        <!--   <hprof:profiler useSpy="true" />  -->
     </bean>
 
     <bean id="dataSource" destroy-method="close"
@@ -57,7 +56,7 @@
         <property name="url" value="jdbc:oracle:thin:@localhost:1521:xe"/>
         <property name="username" value="jcool"/>
         <property name="password" value="jcool"/>
-        <property name="maxActive" value="1"/>
+        <property name="maxActive" value="10"/>
 
     </bean>
 

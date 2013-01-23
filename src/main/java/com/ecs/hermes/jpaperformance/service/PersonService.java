@@ -3,8 +3,10 @@ package com.ecs.hermes.jpaperformance.service;
 import com.ecs.hermes.jpaperformance.persistence.dao.IGenericDAO;
 import com.ecs.hermes.jpaperformance.persistence.dao.PersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
+import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -20,7 +22,10 @@ import java.util.List;
  */
 
 @Service(value = "personService")
+@Scope(value = "prototype")
 public class PersonService {
+
+    private Logger logger = Logger.getLogger(PersonService.class);
 
     @Autowired
     @Qualifier("personDAO")
@@ -46,6 +51,8 @@ public class PersonService {
 
     @Transactional
     public List<Person> saveACollectionOfPersonsWithOneCallToDao(List<Person> personList) {
+
+        logger.info("Passing call to dao");
 
         return ((PersonDAO) genericDAO).saveACollectionOfPersons(personList);
 

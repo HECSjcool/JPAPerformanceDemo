@@ -19,7 +19,7 @@ public class Book {
             generator = "SEQ_GEN")
     @SequenceGenerator(
             name = "SEQ_GEN",
-            sequenceName = "my_Book_sequence", allocationSize = 1000)
+            sequenceName = "my_Book_sequence", allocationSize = 10000)
     private Long id;
 
     @Column

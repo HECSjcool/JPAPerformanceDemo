@@ -18,7 +18,7 @@ import java.util.List;
 public class PersonDAO extends GenericDAOJPAImpl<Person, Long> {
 
     public List<Person> saveACollectionOfPersons(List<Person> personToBeSavedList) {
-        int counter = 0;
+        int counter = 1;
         List listSavedPersons = new ArrayList<Person>(personToBeSavedList.size());
 
         for (Person p : personToBeSavedList) {
