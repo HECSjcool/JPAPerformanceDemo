@@ -4,8 +4,9 @@ import com.ecs.hermes.jpaperformance.persistence.dao.PersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
-import com.ecs.hermes.jpaperformance.persistence.launchers.SpringUtils;
+import com.ecs.hermes.jpaperformance.service.impl.PersonService;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
+import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -26,7 +27,7 @@ import static org.junit.Assert.assertNotNull;
 public class TestPersonService {
 
     public static final int NUMBER_OF_PERSONS_CREATED = 100000;
-    static PersonService personService;
+    static IPersonService personService;
     static ApplicationContext context = SpringUtils.init();
     static PersonDAO personDAO;
     Logger logger = Logger.getLogger(TestPersonService.class);
@@ -34,7 +35,7 @@ public class TestPersonService {
     @BeforeClass
     public static void setUp() {
 
-        personService = (PersonService) context.getBean("personService");
+        personService = (IPersonService) context.getBean("personService");
         personDAO = (PersonDAO) context.getBean("personDAO");
 
     }
@@ -57,7 +58,7 @@ public class TestPersonService {
         p.setLastName("last" + System.currentTimeMillis());
     }
 
-    @Test
+    // @Test
     public void testCreateABPPerson() {
 
         Person p = createDummyBPPerson();
@@ -67,7 +68,7 @@ public class TestPersonService {
 
     }
 
-    @Test
+    //@Test
     public void testCreateAGPPerson() {
 
         Person p = createDummyGPPerson();
@@ -77,7 +78,7 @@ public class TestPersonService {
 
     }
 
-    @Test
+    //@Test
     public void testCreateTwoAGPPerson() {
 
         Person p = createDummyGPPerson();
@@ -95,7 +96,7 @@ public class TestPersonService {
     /**
      * To RUN WHILE GOING THROUGH SLIDES  ( 2 min 24)
      */
-    @Test
+    //@Test
     public void testCreateCollectionOfBPPersons() {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
@@ -111,7 +112,7 @@ public class TestPersonService {
     /**
      * Time took : 1 m 27
      */
-    @Test
+    //@Test
     public void testCreateCollectionOfGPPersons() {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
@@ -122,7 +123,8 @@ public class TestPersonService {
 
     }
 
-    @Test
+    //@Test
+
     /**
      * Time took : 42
      */
@@ -140,7 +142,7 @@ public class TestPersonService {
 
     }
 
-    @Test
+    // @Test
     public void testCreateCollectionOfPersonsInOneTransactionAndFlushing() {
 
         List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED);
@@ -189,7 +191,7 @@ public class TestPersonService {
 
     }
 
-    @Test
+    //@Test
     public void testGetAPersonWithAnParticularInIDByUsingTheFirstLevelCache() {
 
         Person p = createDummyGPPerson();

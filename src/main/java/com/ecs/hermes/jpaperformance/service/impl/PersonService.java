@@ -1,8 +1,9 @@
-package com.ecs.hermes.jpaperformance.service;
+package com.ecs.hermes.jpaperformance.service.impl;
 
 import com.ecs.hermes.jpaperformance.persistence.dao.IGenericDAO;
 import com.ecs.hermes.jpaperformance.persistence.dao.PersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
+import com.ecs.hermes.jpaperformance.service.IPersonService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -23,7 +24,7 @@ import java.util.List;
 
 @Service(value = "personService")
 @Scope(value = "prototype")
-public class PersonService {
+public class PersonService implements IPersonService {
 
     private Logger logger = Logger.getLogger(PersonService.class);
 

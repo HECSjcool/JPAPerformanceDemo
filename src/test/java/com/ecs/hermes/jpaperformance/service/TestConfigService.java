@@ -1,7 +1,7 @@
 package com.ecs.hermes.jpaperformance.service;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.ConfigData;
-import com.ecs.hermes.jpaperformance.persistence.launchers.SpringUtils;
+import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -20,7 +20,7 @@ public class TestConfigService {
 
     Logger logger = Logger.getLogger(com.ecs.hermes.jpaperformance.service.TestConfigService.class);
     static ApplicationContext context = SpringUtils.init();
-    static ConfigDataService cs = (ConfigDataService) context.getBean("configDataService");
+    static IConfigDataService cs = (IConfigDataService) context.getBean("configDataService");
 
     @Test
     public void saveConfigDataAndGetParticularEvent() {

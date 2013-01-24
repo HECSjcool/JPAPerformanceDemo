@@ -1,6 +1,6 @@
 package com.ecs.hermes.jpaperformance.launchers;
 
-import com.ecs.hermes.jpaperformance.persistence.launchers.SpringUtils;
+import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.junit.Test;
 
 /**

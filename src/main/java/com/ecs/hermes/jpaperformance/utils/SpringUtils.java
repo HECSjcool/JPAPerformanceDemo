@@ -1,4 +1,4 @@
-package com.ecs.hermes.jpaperformance.persistence.launchers;
+package com.ecs.hermes.jpaperformance.utils;
 
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.support.ClassPathXmlApplicationContext;

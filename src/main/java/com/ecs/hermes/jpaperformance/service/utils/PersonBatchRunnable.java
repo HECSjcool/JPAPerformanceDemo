@@ -1,7 +1,7 @@
 package com.ecs.hermes.jpaperformance.service.utils;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
-import com.ecs.hermes.jpaperformance.service.PersonService;
+import com.ecs.hermes.jpaperformance.service.impl.PersonService;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
-package com.ecs.hermes.jpaperformance.service;
+package com.ecs.hermes.jpaperformance.service.impl;
 
 import com.ecs.hermes.jpaperformance.persistence.dao.IGenericDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Book;
 import com.ecs.hermes.jpaperformance.persistence.domain.Library;
+import com.ecs.hermes.jpaperformance.service.ILibraryService;
 import org.apache.log4j.Logger;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Qualifier;
@@ -22,7 +23,7 @@ import java.util.Set;
  * To change this template use File | Settings | File Templates.
  */
 @Service(value = "libraryService")
-public class LibraryService {
+public class LibraryService implements ILibraryService {
 
     Logger logger = Logger.getLogger(this.getClass());
 
@@ -30,12 +31,14 @@ public class LibraryService {
     @Qualifier("libraryDAO")
     private IGenericDAO genericDAO;
 
+    @Override
     @Transactional
     public List<Library> saveACollectionOfLibraries(List<Library> libraryList) {
         return genericDAO.saveACollection(libraryList);
 
     }
 
+    @Override
     @Transactional
     public void retrieveAllBooksAndUpdateLastReadDate(Date date) {
 
@@ -62,6 +65,7 @@ public class LibraryService {
         oneBook.setLastReadDate(date);
     }
 
+    @Override
     @Transactional
     public void deleteAllLibraries() {
         List<Library> libraryList = genericDAO.findAll();
@@ -72,6 +76,7 @@ public class LibraryService {
         }
     }
 
+    @Override
     @Transactional
     public void deleteAllBookForOneLibrary() {
         List<Library> libraryList = genericDAO.findAll();

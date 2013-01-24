@@ -2,7 +2,7 @@ package com.ecs.hermes.jpaperformance.service;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Book;
 import com.ecs.hermes.jpaperformance.persistence.domain.Library;
-import com.ecs.hermes.jpaperformance.persistence.launchers.SpringUtils;
+import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -18,20 +18,20 @@ import java.util.*;
  */
 public class TestLibraryService {
 
-    static LibraryService libraryService;
+    static ILibraryService ILibraryService;
     static ApplicationContext context = SpringUtils.init();
 
     @BeforeClass
     public static void setUp() {
 
-        libraryService = (LibraryService) context.getBean("libraryService");
+        ILibraryService = (ILibraryService) context.getBean("libraryService");
     }
 
     @Test
     public void testCreateCollectionOfLibraries() {
 
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-        libraryService.saveACollectionOfLibraries(libraryList);
+        ILibraryService.saveACollectionOfLibraries(libraryList);
 
     }
 
@@ -65,16 +65,16 @@ public class TestLibraryService {
     @Test
     public void testUpdate() {
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-        libraryService.saveACollectionOfLibraries(libraryList);
-        libraryService.retrieveAllBooksAndUpdateLastReadDate(new Date());
+        ILibraryService.saveACollectionOfLibraries(libraryList);
+        ILibraryService.retrieveAllBooksAndUpdateLastReadDate(new Date());
 
     }
 
     @Test
     public void testDelete() {
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-        libraryService.saveACollectionOfLibraries(libraryList);
-        libraryService.deleteAllBookForOneLibrary();
+        ILibraryService.saveACollectionOfLibraries(libraryList);
+        ILibraryService.deleteAllBookForOneLibrary();
     }
 
 }
