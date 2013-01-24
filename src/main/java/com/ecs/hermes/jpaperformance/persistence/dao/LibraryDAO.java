@@ -22,4 +22,10 @@ public class LibraryDAO extends GenericDAOJPAImpl<Library, Long> {
         return sess.createCriteria(Library.class).setMaxResults(100).list();
 
     }
+
+      /* CriteriaBuilder cb = em.getCriteriaBuilder();
+        CriteriaQuery<Library> c= cb.createQuery(Library.class);
+        Root<Library> lib=c.from(Library.class);
+        c.select(lib);
+        return em.createQuery(c).getResultList(); */
 }
