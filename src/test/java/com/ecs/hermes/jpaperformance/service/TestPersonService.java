@@ -159,7 +159,7 @@ public class TestPersonService {
     @Test
     public void testCreateCollectionOfPersonsInOneTransactionAndFlushingWithMultiThreading() {
 
-        List<PersonBatchRunnable> personBatchRunnables = new ArrayList<PersonBatchRunnable>();
+        List<PersonBatchRunnable> personBatchRunnables = new ArrayList<PersonBatchRunnable>(5);
 
         for (int j = 0; j < 5; j++) {
             List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / 5);
@@ -173,7 +173,7 @@ public class TestPersonService {
 
         }
 
-        List<Thread> threadList = new ArrayList<Thread>();
+        List<Thread> threadList = new ArrayList<Thread>(5);
         int counter = 1;
         for (PersonBatchRunnable pbr : personBatchRunnables) {
 
