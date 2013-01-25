@@ -7,7 +7,7 @@ package com.ecs.hermes.jpaperformance.launchers;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
-import com.ecs.hermes.jpaperformance.service.impl.PersonService;
+import com.ecs.hermes.jpaperformance.service.IPersonService;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
 import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.springframework.context.ApplicationContext;
@@ -47,16 +47,19 @@ public class SampleMainForProfiling {
                 listPersons.add(p);
 
             }
-            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (PersonService) context.getBean("personService")));
+            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (IPersonService) context.getBean("personService")));
 
         }
 
         List<Thread> threadList = new ArrayList<Thread>();
+        int counter = 1;
         for (PersonBatchRunnable pbr : personBatchRunnables) {
 
-            Thread t = new Thread(pbr);
+
+            Thread t = new Thread(pbr, "ORMPerformanceThread" + counter);
             threadList.add(t);
             t.start();
+            counter++;
 
         }
         for (Thread t : threadList) {
@@ -66,6 +69,7 @@ public class SampleMainForProfiling {
                 e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
             }
         }
+        System.exit(0);
 
     }
 

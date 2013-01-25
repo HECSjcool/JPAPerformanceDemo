@@ -174,11 +174,14 @@ public class TestPersonService {
         }
 
         List<Thread> threadList = new ArrayList<Thread>();
+        int counter = 1;
         for (PersonBatchRunnable pbr : personBatchRunnables) {
 
-            Thread t = new Thread(pbr);
+
+            Thread t = new Thread(pbr, "ORMPerformanceThread" + counter);
             threadList.add(t);
             t.start();
+            counter++;
 
         }
         for (Thread t : threadList) {
