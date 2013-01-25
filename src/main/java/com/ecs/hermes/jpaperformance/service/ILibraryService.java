@@ -25,4 +25,8 @@ public interface ILibraryService {
 
     @Transactional
     void deleteAllBookForOneLibrary();
+
+    @Transactional
+    List<Library> getAllLibraries();
+
 }

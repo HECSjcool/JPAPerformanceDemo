@@ -85,4 +85,9 @@ public class LibraryService implements ILibraryService {
         libraryList.get(0).getBookSet().clear();
 
     }
+
+    @Override
+    public List<Library> getAllLibraries() {
+        return genericDAO.findAll();  //To change body of implemented methods use File | Settings | File Templates.
+    }
 }

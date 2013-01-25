@@ -18,20 +18,20 @@ import java.util.*;
  */
 public class TestLibraryService {
 
-    static ILibraryService ILibraryService;
+    static ILibraryService libraryService;
     static ApplicationContext context = SpringUtils.init();
 
     @BeforeClass
     public static void setUp() {
 
-        ILibraryService = (ILibraryService) context.getBean("libraryService");
+        libraryService = (ILibraryService) context.getBean("libraryService");
     }
 
     @Test
     public void testCreateCollectionOfLibraries() {
 
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-        ILibraryService.saveACollectionOfLibraries(libraryList);
+        libraryService.saveACollectionOfLibraries(libraryList);
 
     }
 
@@ -65,16 +65,16 @@ public class TestLibraryService {
     @Test
     public void testUpdate() {
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-        ILibraryService.saveACollectionOfLibraries(libraryList);
-        ILibraryService.retrieveAllBooksAndUpdateLastReadDate(new Date());
+        libraryService.saveACollectionOfLibraries(libraryList);
+        libraryService.retrieveAllBooksAndUpdateLastReadDate(new Date());
 
     }
 
     @Test
     public void testDelete() {
         List<Library> libraryList = createDummyLibrariesAndBooks(2, 5);
-        ILibraryService.saveACollectionOfLibraries(libraryList);
-        ILibraryService.deleteAllBookForOneLibrary();
+        libraryService.saveACollectionOfLibraries(libraryList);
+        libraryService.deleteAllBookForOneLibrary();
     }
 
 }

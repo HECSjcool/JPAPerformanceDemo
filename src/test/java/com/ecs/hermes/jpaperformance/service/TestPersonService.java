@@ -4,7 +4,6 @@ import com.ecs.hermes.jpaperformance.persistence.dao.PersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
-import com.ecs.hermes.jpaperformance.service.impl.PersonService;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
 import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.apache.log4j.Logger;
@@ -40,6 +39,7 @@ public class TestPersonService {
 
     }
 
+
     private Person createDummyBPPerson() {
         Person p = new PersonBadPerformance();
 
@@ -58,7 +58,7 @@ public class TestPersonService {
         p.setLastName("last" + System.currentTimeMillis());
     }
 
-    // @Test
+    @Test
     public void testCreateABPPerson() {
 
         Person p = createDummyBPPerson();
@@ -68,7 +68,7 @@ public class TestPersonService {
 
     }
 
-    //@Test
+    @Test
     public void testCreateAGPPerson() {
 
         Person p = createDummyGPPerson();
@@ -78,7 +78,7 @@ public class TestPersonService {
 
     }
 
-    //@Test
+    @Test
     public void testCreateTwoAGPPerson() {
 
         Person p = createDummyGPPerson();
@@ -96,7 +96,7 @@ public class TestPersonService {
     /**
      * To RUN WHILE GOING THROUGH SLIDES  ( 2 min 24)
      */
-    //@Test
+    @Test
     public void testCreateCollectionOfBPPersons() {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
@@ -112,7 +112,7 @@ public class TestPersonService {
     /**
      * Time took : 1 m 27
      */
-    //@Test
+    @Test
     public void testCreateCollectionOfGPPersons() {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
@@ -123,11 +123,11 @@ public class TestPersonService {
 
     }
 
-    //@Test
 
     /**
      * Time took : 42
      */
+    @Test
     public void testCreateCollectionOfPersonsInOneTransaction() {
 
         List listPersons = new ArrayList<Person>(NUMBER_OF_PERSONS_CREATED);
@@ -142,7 +142,7 @@ public class TestPersonService {
 
     }
 
-    // @Test
+    @Test
     public void testCreateCollectionOfPersonsInOneTransactionAndFlushing() {
 
         List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED);
@@ -169,7 +169,7 @@ public class TestPersonService {
                 listPersons.add(p);
 
             }
-            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (PersonService) context.getBean("personService")));
+            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (IPersonService) context.getBean("personService")));
 
         }
 

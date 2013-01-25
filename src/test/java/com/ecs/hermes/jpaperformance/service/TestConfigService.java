@@ -9,6 +9,8 @@ import org.springframework.context.ApplicationContext;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertTrue;
+
 /**
  * Created with IntelliJ IDEA.
  * User: john
@@ -35,9 +37,19 @@ public class TestConfigService {
         cs.saveACollectionOfLibraries(configDataList);
 
         logger.info("Getting a particular config data element - this can be done through a other object that as link");
-        logger.info(cs.getConfigData(1000L));
+
+        ConfigData cd = cs.getConfigData(1000L);
+
+        logger.info(cd);
+        assertTrue("key1".equals(cd.getKey()));
+        assertTrue("value1".equals(cd.getValue()));
+
+        List<ConfigData> cdList = cs.getConfigData("key1");
+        assertTrue(cdList.size() == 1);
+        logger.info(cdList.get(0));
+
         logger.info(cs.getConfigData("key1"));
-        logger.info(cs.getConfigData("key1"));
+
 
     }
 }

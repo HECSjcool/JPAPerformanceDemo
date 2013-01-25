@@ -1,7 +1,7 @@
 package com.ecs.hermes.jpaperformance.service.utils;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
-import com.ecs.hermes.jpaperformance.service.impl.PersonService;
+import com.ecs.hermes.jpaperformance.service.IPersonService;
 
 import java.util.List;
 
@@ -15,9 +15,9 @@ import java.util.List;
 public class PersonBatchRunnable implements Runnable {
 
     private final List<Person> personList;
-    private final PersonService personService;
+    private final IPersonService personService;
 
-    public PersonBatchRunnable(List<Person> personsToSave, PersonService personService) {
+    public PersonBatchRunnable(List<Person> personsToSave, IPersonService personService) {
         personList = personsToSave;
         this.personService = personService;
     }
