@@ -41,8 +41,8 @@ public class TestConfigService {
         ConfigData cd = cs.getConfigData(1000L);
 
         logger.info(cd);
-        assertTrue("key1".equals(cd.getKey()));
-        assertTrue("value1".equals(cd.getValue()));
+        assertTrue("key0".equals(cd.getKey()));
+        assertTrue("value0".equals(cd.getValue()));
 
         List<ConfigData> cdList = cs.getConfigData("key1");
         assertTrue(cdList.size() == 1);
