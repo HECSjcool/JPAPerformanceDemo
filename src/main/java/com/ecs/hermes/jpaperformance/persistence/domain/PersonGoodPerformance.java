@@ -18,7 +18,7 @@ public class PersonGoodPerformance extends Person {
             generator = "SEQ_GEN")
     @SequenceGenerator(
             name = "SEQ_GEN",
-            sequenceName = "my_sequence", allocationSize = 100)
+            sequenceName = "my_sequence", allocationSize = 20000)
     private Long id;
 
     @Column
