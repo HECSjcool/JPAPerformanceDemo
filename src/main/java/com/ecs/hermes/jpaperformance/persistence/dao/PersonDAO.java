@@ -2,6 +2,7 @@ package com.ecs.hermes.jpaperformance.persistence.dao;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
+import org.springframework.context.annotation.Scope;
 import org.springframework.stereotype.Repository;
 
 import java.util.ArrayList;
@@ -15,6 +16,7 @@ import java.util.List;
  * To change this template use File | Settings | File Templates.
  */
 @Repository(value = "personDAO")
+@Scope(value = "prototype")
 public class PersonDAO extends GenericDAOJPAImpl<Person, Long> {
 
     public List<Person> saveACollectionOfPersons(List<Person> personToBeSavedList) {
