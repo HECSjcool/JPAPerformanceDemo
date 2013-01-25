@@ -6,6 +6,7 @@ import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
 import com.ecs.hermes.jpaperformance.utils.SpringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.junit.BeforeClass;
 import org.junit.Test;
@@ -25,11 +26,11 @@ import static org.junit.Assert.assertNotNull;
  */
 public class TestPersonService {
 
-    public static final int NUMBER_OF_PERSONS_CREATED = 100000;
+    static final int NUMBER_OF_PERSONS_CREATED = 100000;
     static IPersonService personService;
     static ApplicationContext context = SpringUtils.init();
     static PersonDAO personDAO;
-    Logger logger = Logger.getLogger(TestPersonService.class);
+    static Logger logger = Logger.getLogger(TestPersonService.class);
 
     @BeforeClass
     public static void setUp() {
@@ -164,7 +165,7 @@ public class TestPersonService {
         for (int j = 0; j < 5; j++) {
             List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / 5);
 
-            for (int i = 0 + NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
+            for (int i = NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
                 Person p = createDummyGPPerson();
                 listPersons.add(p);
 
@@ -188,13 +189,13 @@ public class TestPersonService {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                logger.error(ExceptionUtils.getStackTrace(e));
             }
         }
 
     }
 
-    //@Test
+    @Test
     public void testGetAPersonWithAnParticularInIDByUsingTheFirstLevelCache() {
 
         Person p = createDummyGPPerson();

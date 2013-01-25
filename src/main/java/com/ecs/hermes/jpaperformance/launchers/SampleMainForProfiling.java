@@ -10,6 +10,8 @@ import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import com.ecs.hermes.jpaperformance.service.IPersonService;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
 import com.ecs.hermes.jpaperformance.utils.SpringUtils;
+import org.apache.commons.lang.exception.ExceptionUtils;
+import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ public class SampleMainForProfiling {
 
     private static final int NUMBER_OF_PERSONS_CREATED = 100000;
     static ApplicationContext context = SpringUtils.init();
-
+    static Logger logger = Logger.getLogger(SampleMainForProfiling.class);
 
     private static Person createDummyGPPerson() {
         Person p = new PersonGoodPerformance();
@@ -42,7 +44,7 @@ public class SampleMainForProfiling {
         for (int j = 0; j < 5; j++) {
             List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / 5);
 
-            for (int i = 0 + NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
+            for (int i = NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
                 Person p = createDummyGPPerson();
                 listPersons.add(p);
 
@@ -66,7 +68,7 @@ public class SampleMainForProfiling {
             try {
                 t.join();
             } catch (InterruptedException e) {
-                e.printStackTrace();  //To change body of catch statement use File | Settings | File Templates.
+                logger.error(ExceptionUtils.getStackTrace(e));
             }
         }
         System.exit(0);
