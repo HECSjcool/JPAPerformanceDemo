@@ -1,5 +1,6 @@
-package com.ecs.hermes.jpaperformance.persistence.dao;
+package com.ecs.hermes.jpaperformance.persistence.dao.impl;
 
+import com.ecs.hermes.jpaperformance.persistence.dao.IPersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import org.springframework.context.annotation.Scope;
@@ -17,8 +18,9 @@ import java.util.List;
  */
 @Repository(value = "personDAO")
 @Scope(value = "prototype")
-public class PersonDAO extends GenericDAOJPAImpl<Person, Long> {
+public class PersonDAO extends GenericDAOJPAImpl<Person, Long> implements IPersonDAO {
 
+    @Override
     public List<Person> saveACollectionOfPersons(List<Person> personToBeSavedList) {
         int counter = 1;
         List listSavedPersons = new ArrayList<Person>(personToBeSavedList.size());

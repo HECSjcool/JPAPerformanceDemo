@@ -1,6 +1,5 @@
 package com.ecs.hermes.jpaperformance.service;
 
-import com.ecs.hermes.jpaperformance.persistence.dao.PersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
@@ -8,6 +7,8 @@ import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
 import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
+import org.junit.After;
+import org.junit.Before;
 import org.junit.BeforeClass;
 import org.junit.Test;
 import org.springframework.context.ApplicationContext;
@@ -29,15 +30,23 @@ public class TestPersonService {
     static final int NUMBER_OF_PERSONS_CREATED = 100000;
     static IPersonService personService;
     static ApplicationContext context = SpringUtils.init();
-    static PersonDAO personDAO;
+    long begin;
     static Logger logger = Logger.getLogger(TestPersonService.class);
 
     @BeforeClass
     public static void setUp() {
 
         personService = (IPersonService) context.getBean("personService");
-        personDAO = (PersonDAO) context.getBean("personDAO");
+    }
 
+    @Before
+    public void setChrono() {
+        begin = System.currentTimeMillis();
+    }
+
+    @After
+    public void printTime() {
+        logger.info("Test took " + (System.currentTimeMillis() - begin));
     }
 
 
@@ -139,7 +148,7 @@ public class TestPersonService {
             listPersons.add(p);
 
         }
-        personService.saveACollectionOfPersons(listPersons);
+        List<Person> listPerson = personService.saveACollectionOfPersons(listPersons);
 
     }
 
@@ -192,7 +201,6 @@ public class TestPersonService {
                 logger.error(ExceptionUtils.getStackTrace(e));
             }
         }
-
     }
 
     @Test

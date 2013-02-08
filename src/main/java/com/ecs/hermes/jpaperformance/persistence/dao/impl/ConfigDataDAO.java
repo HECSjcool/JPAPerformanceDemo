@@ -1,4 +1,4 @@
-package com.ecs.hermes.jpaperformance.persistence.dao;
+package com.ecs.hermes.jpaperformance.persistence.dao.impl;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.ConfigData;
 import org.springframework.stereotype.Repository;

@@ -1,5 +1,6 @@
-package com.ecs.hermes.jpaperformance.persistence.dao;
+package com.ecs.hermes.jpaperformance.persistence.dao.impl;
 
+import com.ecs.hermes.jpaperformance.persistence.dao.IGenericDAO;
 import org.hibernate.Session;
 import org.hibernate.criterion.Example;
 

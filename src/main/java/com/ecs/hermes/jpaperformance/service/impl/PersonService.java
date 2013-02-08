@@ -1,7 +1,7 @@
 package com.ecs.hermes.jpaperformance.service.impl;
 
 import com.ecs.hermes.jpaperformance.persistence.dao.IGenericDAO;
-import com.ecs.hermes.jpaperformance.persistence.dao.PersonDAO;
+import com.ecs.hermes.jpaperformance.persistence.dao.IPersonDAO;
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.service.IPersonService;
 import org.apache.log4j.Logger;
@@ -54,8 +54,7 @@ public class PersonService implements IPersonService {
     public List<Person> saveACollectionOfPersonsWithOneCallToDao(List<Person> personList) {
 
         logger.info("Passing call to dao");
-
-        return ((PersonDAO) genericDAO).saveACollectionOfPersons(personList);
+        return ((IPersonDAO) genericDAO).saveACollectionOfPersons(personList);
 
     }
 
