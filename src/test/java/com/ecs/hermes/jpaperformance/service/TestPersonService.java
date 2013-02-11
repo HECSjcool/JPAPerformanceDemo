@@ -28,6 +28,7 @@ import static org.junit.Assert.assertNotNull;
 public class TestPersonService {
 
     static final int NUMBER_OF_PERSONS_CREATED = 100000;
+    public static final int NUMB_OF_THREADS = 5;
     static IPersonService personService;
     static ApplicationContext context = SpringUtils.init();
     long begin;
@@ -169,12 +170,12 @@ public class TestPersonService {
     @Test
     public void testCreateCollectionOfPersonsInOneTransactionAndFlushingWithMultiThreading() {
 
-        List<PersonBatchRunnable> personBatchRunnables = new ArrayList<PersonBatchRunnable>(5);
+        List<PersonBatchRunnable> personBatchRunnables = new ArrayList<PersonBatchRunnable>(NUMB_OF_THREADS);
 
-        for (int j = 0; j < 5; j++) {
-            List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / 5);
+        for (int j = 0; j < NUMB_OF_THREADS; j++) {
+            List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / NUMB_OF_THREADS);
 
-            for (int i = NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
+            for (int i = NUMBER_OF_PERSONS_CREATED / NUMB_OF_THREADS * j; i < NUMBER_OF_PERSONS_CREATED / NUMB_OF_THREADS * (j + 1); i++) {
                 Person p = createDummyGPPerson();
                 listPersons.add(p);
 
@@ -183,10 +184,9 @@ public class TestPersonService {
 
         }
 
-        List<Thread> threadList = new ArrayList<Thread>(5);
+        List<Thread> threadList = new ArrayList<Thread>(NUMB_OF_THREADS);
         int counter = 1;
         for (PersonBatchRunnable pbr : personBatchRunnables) {
-
 
             Thread t = new Thread(pbr, "ORMPerformanceThread" + counter);
             threadList.add(t);
