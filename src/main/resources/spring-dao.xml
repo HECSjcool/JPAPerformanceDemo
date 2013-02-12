@@ -26,8 +26,6 @@
                        value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
                 <entry key="hibernate.cache.use_query_cache" value="true"/>
                 <entry key="hibernate.cache.use_second_level_cache" value="true"/>
-
-
             </map>
         </property>
         <property name="persistenceUnitName" value="myPersistenceUnit"/>
@@ -40,7 +38,7 @@
         <property name="jpaVendorAdapter">
             <bean class="org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter">
 
-                <property name="showSql" value="true"/>
+                <property name="showSql" value="false"/>
                 <property name="generateDdl" value="true"/>
                 <property name="databasePlatform" value="org.hibernate.dialect.Oracle10gDialect"/>
 
@@ -57,6 +55,7 @@
         <property name="username" value="jcool"/>
         <property name="password" value="jcool"/>
         <property name="maxActive" value="10"/>
+        <property name="initialSize" value="10"/>
 
     </bean>
 
