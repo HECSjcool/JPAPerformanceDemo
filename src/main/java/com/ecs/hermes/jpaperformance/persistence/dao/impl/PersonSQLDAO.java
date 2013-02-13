@@ -38,7 +38,7 @@ public class PersonSQLDAO implements IPersonDAO, IGenericDAO {
 
         Integer value = this.jdbcTemplate.queryForInt("select MY_BOOK_SEQUENCE.nextval from dual");
         value--;
-        value = value * 20000;
+        value = value * 100000;
 
         for (Person person : personToBeSavedList) {
             person.setId(value.longValue());
