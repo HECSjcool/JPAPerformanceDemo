@@ -2,10 +2,11 @@ package com.ecs.hermes.jpaperformance.service;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Book;
 import com.ecs.hermes.jpaperformance.persistence.domain.Library;
-import com.ecs.hermes.jpaperformance.utils.SpringUtils;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.*;
 
@@ -16,16 +17,13 @@ import java.util.*;
  * Time: 16:12
  * To change this template use File | Settings | File Templates.
  */
+@ContextConfiguration(locations = "/spring-dao.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TestLibraryService {
 
-    static ILibraryService libraryService;
-    static ApplicationContext context = SpringUtils.init();
+    @Autowired
+    ILibraryService libraryService;
 
-    @BeforeClass
-    public static void setUp() {
-
-        libraryService = (ILibraryService) context.getBean("libraryService");
-    }
 
     @Test
     public void testCreateCollectionOfLibraries() {

@@ -4,14 +4,15 @@ import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
-import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -25,20 +26,18 @@ import static org.junit.Assert.assertNotNull;
  * Time: 16:21
  * To change this template use File | Settings | File Templates.
  */
+@ContextConfiguration(locations = "/spring-dao.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TestPersonService {
 
     static final int NUMBER_OF_PERSONS_CREATED = 100000;
     public static final int NUMB_OF_THREADS = 5;
-    static IPersonService personService;
-    static ApplicationContext context = SpringUtils.init();
+
+    @Autowired
+    IPersonService personService;
     long begin;
     static Logger logger = Logger.getLogger(TestPersonService.class);
 
-    @BeforeClass
-    public static void setUp() {
-
-        personService = (IPersonService) context.getBean("personService");
-    }
 
     @Before
     public void setChrono() {
@@ -86,6 +85,7 @@ public class TestPersonService {
         Person p2 = personService.saveAPerson(p);
         assertNotNull(p2.getId());
         logger.info("Person created with ID " + p2.getId());
+        p2.setLastName("aaaa");
 
     }
 
@@ -163,6 +163,7 @@ public class TestPersonService {
             listPersons.add(p);
 
         }
+
         personService.saveACollectionOfPersonsWithOneCallToDao(listPersons);
 
     }
@@ -180,7 +181,7 @@ public class TestPersonService {
                 listPersons.add(p);
 
             }
-            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (IPersonService) context.getBean("personService")));
+            personBatchRunnables.add(new PersonBatchRunnable(listPersons, personService));
 
         }
 

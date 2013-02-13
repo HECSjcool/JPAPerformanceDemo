@@ -1,10 +1,12 @@
 package com.ecs.hermes.jpaperformance.service;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.ConfigData;
-import com.ecs.hermes.jpaperformance.utils.SpringUtils;
 import org.apache.log4j.Logger;
 import org.junit.Test;
-import org.springframework.context.ApplicationContext;
+import org.junit.runner.RunWith;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,11 +20,14 @@ import static org.junit.Assert.assertTrue;
  * Time: 3:49 PM
  * To change this template use File | Settings | File Templates.
  */
+@ContextConfiguration(locations = "/spring-dao.xml")
+@RunWith(SpringJUnit4ClassRunner.class)
 public class TestConfigService {
 
     Logger logger = Logger.getLogger(com.ecs.hermes.jpaperformance.service.TestConfigService.class);
-    static ApplicationContext context = SpringUtils.init();
-    static IConfigDataService cs = (IConfigDataService) context.getBean("configDataService");
+
+    @Autowired
+    IConfigDataService cs;
 
     @Test
     public void saveConfigDataAndGetParticularEvent() {

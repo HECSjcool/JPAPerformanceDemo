@@ -8,11 +8,9 @@ import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import com.ecs.hermes.jpaperformance.service.IPersonService;
-import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
-import com.ecs.hermes.jpaperformance.utils.SpringUtils;
-import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.springframework.context.ApplicationContext;
+import org.springframework.context.support.ClassPathXmlApplicationContext;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -20,10 +18,11 @@ import java.util.List;
 /**
  * @author john
  */
+
 public class SampleMainForProfiling {
 
     private static final int NUMBER_OF_PERSONS_CREATED = 100000;
-    static ApplicationContext context = SpringUtils.init();
+
     static Logger logger = Logger.getLogger(SampleMainForProfiling.class);
 
     private static Person createDummyGPPerson() {
@@ -39,38 +38,17 @@ public class SampleMainForProfiling {
 
     public static void main(String[] args) {
 
-        List<PersonBatchRunnable> personBatchRunnables = new ArrayList<PersonBatchRunnable>(5);
+        ApplicationContext context =
+                new ClassPathXmlApplicationContext(new String[]{"spring-dao.xml"});
 
-        for (int j = 0; j < 5; j++) {
-            List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / 5);
+        List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED);
 
-            for (int i = NUMBER_OF_PERSONS_CREATED / 5 * j; i < NUMBER_OF_PERSONS_CREATED / 5 * (j + 1); i++) {
-                Person p = createDummyGPPerson();
-                listPersons.add(p);
-
-            }
-            personBatchRunnables.add(new PersonBatchRunnable(listPersons, (IPersonService) context.getBean("personService")));
+        for (int i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
+            Person p = createDummyGPPerson();
+            listPersons.add(p);
 
         }
-
-        List<Thread> threadList = new ArrayList<Thread>(5);
-        int counter = 1;
-        for (PersonBatchRunnable pbr : personBatchRunnables) {
-
-
-            Thread t = new Thread(pbr, "ORMPerformanceThread" + counter);
-            threadList.add(t);
-            t.start();
-            counter++;
-
-        }
-        for (Thread t : threadList) {
-            try {
-                t.join();
-            } catch (InterruptedException e) {
-                logger.error(ExceptionUtils.getStackTrace(e));
-            }
-        }
+        context.getBean(IPersonService.class).saveACollectionOfPersonsWithOneCallToDao(listPersons);
         System.exit(0);
 
     }

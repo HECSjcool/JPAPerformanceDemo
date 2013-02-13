@@ -15,13 +15,13 @@
 
     <context:annotation-config/>
     <aop:aspectj-autoproxy/>
-    <context:component-scan base-package="com.ecs.hermes"/>
+    <context:component-scan base-package="com.ecs.hermes.jpaperformance"/>
 
     <bean id="myEmf" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
 
         <property name="jpaPropertyMap">
             <map>
-                <entry key="hibernate.hbm2ddl.auto" value="create-drop"/>
+                <entry key="hibernate.hbm2ddl.auto" value="create"/>
                 <entry key="hibernate.cache.region.factory_class"
                        value="org.hibernate.cache.ehcache.EhCacheRegionFactory"/>
                 <entry key="hibernate.cache.use_query_cache" value="true"/>
@@ -66,6 +66,4 @@
     <bean id="myTxManager" class="org.springframework.orm.jpa.JpaTransactionManager">
         <property name="entityManagerFactory" ref="myEmf"/>
     </bean>
-
-
 </beans>
