@@ -2,8 +2,8 @@ package com.ecs.hermes.jpaperformance.service;
 
 import com.ecs.hermes.jpaperformance.persistence.domain.Person;
 import com.ecs.hermes.jpaperformance.persistence.domain.PersonBadPerformance;
-import com.ecs.hermes.jpaperformance.persistence.domain.PersonGoodPerformance;
 import com.ecs.hermes.jpaperformance.service.utils.PersonBatchRunnable;
+import com.ecs.hermes.jpaperformance.service.utils.PersonSampleDataCreator;
 import org.apache.commons.lang.exception.ExceptionUtils;
 import org.apache.log4j.Logger;
 import org.junit.After;
@@ -28,7 +28,7 @@ import static org.junit.Assert.assertNotNull;
  */
 @ContextConfiguration(locations = "/spring-dao.xml")
 @RunWith(SpringJUnit4ClassRunner.class)
-public class TestPersonService {
+public class TestPersonServiceJPA {
 
     static final int NUMBER_OF_PERSONS_CREATED = 100000;
     public static final int NUMB_OF_THREADS = 5;
@@ -36,7 +36,7 @@ public class TestPersonService {
     @Autowired
     IPersonService personService;
     long begin;
-    static Logger logger = Logger.getLogger(TestPersonService.class);
+    static Logger logger = Logger.getLogger(TestPersonServiceJPA.class);
 
 
     @Before
@@ -50,28 +50,10 @@ public class TestPersonService {
     }
 
 
-    private Person createDummyBPPerson() {
-        Person p = new PersonBadPerformance();
-
-        setFirstAndLastNames(p);
-        return p;
-    }
-
-    private Person createDummyGPPerson() {
-        Person p = new PersonGoodPerformance();
-        setFirstAndLastNames(p);
-        return p;
-    }
-
-    private static void setFirstAndLastNames(Person p) {
-        p.setFirstName("first" + System.currentTimeMillis());
-        p.setLastName("last" + System.currentTimeMillis());
-    }
-
     @Test
     public void testCreateABPPerson() {
 
-        Person p = createDummyBPPerson();
+        Person p = PersonSampleDataCreator.createDummyBPPerson();
         p.setId(0L);
         Person p2 = personService.saveAPerson(p);
         assertNotNull(p2.getId());
@@ -81,7 +63,7 @@ public class TestPersonService {
     @Test
     public void testCreateAGPPerson() {
 
-        Person p = createDummyGPPerson();
+        Person p = PersonSampleDataCreator.createDummyGPPerson();
         Person p2 = personService.saveAPerson(p);
         assertNotNull(p2.getId());
         logger.info("Person created with ID " + p2.getId());
@@ -90,14 +72,14 @@ public class TestPersonService {
     }
 
     @Test
-    public void testCreateTwoAGPPerson() {
+    public void testCreateTwoGPPerson() {
 
-        Person p = createDummyGPPerson();
+        Person p = PersonSampleDataCreator.createDummyGPPerson();
         Person p2 = personService.saveAPerson(p);
         assertNotNull(p2.getId());
         logger.info("Person created with ID " + p2.getId());
 
-        p = createDummyGPPerson();
+        p = PersonSampleDataCreator.createDummyGPPerson();
         p2 = personService.saveAPerson(p);
         assertNotNull(p2.getId());
         logger.info("Person created with ID " + p2.getId());
@@ -112,7 +94,7 @@ public class TestPersonService {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
 
-            Person p = createDummyBPPerson();
+            Person p = PersonSampleDataCreator.createDummyGPPerson();
             p.setId(i.longValue() + 1);
             Person p2 = personService.saveAPerson(p);
             assertNotNull(p2.getId());
@@ -127,7 +109,7 @@ public class TestPersonService {
     public void testCreateCollectionOfGPPersons() {
 
         for (Integer i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
-            Person p = createDummyGPPerson();
+            Person p = PersonSampleDataCreator.createDummyGPPerson();
             Person p2 = personService.saveAPerson(p);
             assertNotNull(p2.getId());
         }
@@ -144,7 +126,7 @@ public class TestPersonService {
         List listPersons = new ArrayList<Person>(NUMBER_OF_PERSONS_CREATED);
 
         for (int i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
-            Person p = createDummyGPPerson();
+            Person p = PersonSampleDataCreator.createDummyGPPerson();
 
             listPersons.add(p);
 
@@ -159,7 +141,7 @@ public class TestPersonService {
         List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED);
 
         for (int i = 0; i < NUMBER_OF_PERSONS_CREATED; i++) {
-            Person p = createDummyGPPerson();
+            Person p = PersonSampleDataCreator.createDummyGPPerson();
             listPersons.add(p);
 
         }
@@ -177,7 +159,7 @@ public class TestPersonService {
             List listPersons = new ArrayList<PersonBadPerformance>(NUMBER_OF_PERSONS_CREATED / NUMB_OF_THREADS);
 
             for (int i = NUMBER_OF_PERSONS_CREATED / NUMB_OF_THREADS * j; i < NUMBER_OF_PERSONS_CREATED / NUMB_OF_THREADS * (j + 1); i++) {
-                Person p = createDummyGPPerson();
+                Person p = PersonSampleDataCreator.createDummyGPPerson();
                 listPersons.add(p);
 
             }
@@ -207,7 +189,7 @@ public class TestPersonService {
     @Test
     public void testGetAPersonWithAnParticularInIDByUsingTheFirstLevelCache() {
 
-        Person p = createDummyGPPerson();
+        Person p = PersonSampleDataCreator.createDummyGPPerson();
         Person p2 = personService.saveAPerson(p);
 
         personService.retrieveInSameTransactionTwoTimesTheSamePerson(p2.getId());
