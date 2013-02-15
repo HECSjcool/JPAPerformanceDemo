@@ -3,6 +3,6 @@
        xsi:schemaLocation="http://www.springframework.org/schema/beans
      http://www.springframework.org/schema/beans/spring-beans.xsd">
 
-
+    <!-- overwrite definition op personDAO to use another DAO -->
     <bean id="personDAO" class="com.ecs.hermes.jpaperformance.persistence.dao.impl.PersonSQLDAO"/>
 </beans>
