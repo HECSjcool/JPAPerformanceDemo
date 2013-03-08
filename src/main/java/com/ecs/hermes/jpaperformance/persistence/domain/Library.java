@@ -1,5 +1,6 @@
 package com.ecs.hermes.jpaperformance.persistence.domain;
 
+
 import javax.persistence.*;
 import java.util.Set;
 
@@ -28,8 +29,8 @@ public class Library {
 
     @OneToMany(cascade = CascadeType.ALL, orphanRemoval = true, fetch = FetchType.LAZY)
     @JoinColumn(name = "LIB_ID")
-    // @Fetch(value = FetchMode.SELECT)
-    // @BatchSize(size = 2)
+    //  @Fetch(value = FetchMode.SELECT)
+    //  @BatchSize(size = 2)
     private Set<Book> bookSet;
 
     public Set<Book> getBookSet() {
